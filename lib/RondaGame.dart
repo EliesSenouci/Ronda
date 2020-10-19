@@ -10,6 +10,7 @@ class RondaGame extends Game {
 
   Size screenSize;
   List<GameCard> cards;
+  double tileSize;
 
   RondaGame() {
     initialize();
@@ -41,6 +42,8 @@ class RondaGame extends Game {
 
   void resize(Size size) {
     screenSize = size;
+    tileSize = screenSize.width / 9;
+
   }
 
   void onTapDown(TapDownDetails d) {

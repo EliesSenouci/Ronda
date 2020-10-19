@@ -1,4 +1,5 @@
 import 'package:Ronda/RondaGame.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,4 +17,8 @@ void main() {
   tapper.onTapDown = game.onTapDown;
   flameUtil.addGestureRecognizer(tapper);
 
-}
+  Flame.images.loadAll(<String>[
+    'Cards/Clover/card_1_clover.png',
+  ]);
+
+  }
