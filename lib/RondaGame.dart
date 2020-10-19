@@ -5,12 +5,14 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import 'Cards/GameCard.dart';
+import 'Deck.dart';
 
 class RondaGame extends Game {
 
   Size screenSize;
-  List<GameCard> cards;
   double tileSize;
+  Deck deck;
+  List<GameCard> cards;
 
   RondaGame() {
     initialize();
@@ -18,12 +20,13 @@ class RondaGame extends Game {
 
   void initialize() async {
     resize(await Flame.util.initialDimensions());
-    cards = List<GameCard>();
     initCards();
   }
 
   void initCards() {
-    cards.add(GameCard(this));
+    cards = List<GameCard>();
+    deck = new Deck(this);
+    cards.add(deck.deck.last);
   }
 
   @override

@@ -24,5 +24,56 @@ flutter:
   uses-material-design: true
 
   assets:
-     - assets/images/Cards/Clover/card_1_clover.png
+     - assets/images/Cards/card_1_clover.png
+     - assets/images/Cards/card_2_clover.png
+     - assets/images/Cards/card_3_clover.png
+     - assets/images/Cards/card_4_clover.png
+     - assets/images/Cards/card_5_clover.png
+     - assets/images/Cards/card_6_clover.png
+     - assets/images/Cards/card_7_clover.png
+     - assets/images/Cards/card_8_clover.png
+     - assets/images/Cards/card_9_clover.png
+     - assets/images/Cards/card_10_clover.png
+     - assets/images/Cards/card_11_clover.png
+     - assets/images/Cards/card_12_clover.png
+     - assets/images/Cards/card_13_clover.png
+     - assets/images/Cards/card_1_diamond.png
+     - assets/images/Cards/card_2_diamond.png
+     - assets/images/Cards/card_3_diamond.png
+     - assets/images/Cards/card_4_diamond.png
+     - assets/images/Cards/card_5_diamond.png
+     - assets/images/Cards/card_6_diamond.png
+     - assets/images/Cards/card_7_diamond.png
+     - assets/images/Cards/card_8_diamond.png
+     - assets/images/Cards/card_9_diamond.png
+     - assets/images/Cards/card_10_diamond.png
+     - assets/images/Cards/card_11_diamond.png
+     - assets/images/Cards/card_12_diamond.png
+     - assets/images/Cards/card_13_diamond.png
+     - assets/images/Cards/card_1_heart.png
+     - assets/images/Cards/card_2_heart.png
+     - assets/images/Cards/card_3_heart.png
+     - assets/images/Cards/card_4_heart.png
+     - assets/images/Cards/card_5_heart.png
+     - assets/images/Cards/card_6_heart.png
+     - assets/images/Cards/card_7_heart.png
+     - assets/images/Cards/card_8_heart.png
+     - assets/images/Cards/card_9_heart.png
+     - assets/images/Cards/card_10_heart.png
+     - assets/images/Cards/card_11_heart.png
+     - assets/images/Cards/card_12_heart.png
+     - assets/images/Cards/card_13_heart.png
+     - assets/images/Cards/card_1_spade.png
+     - assets/images/Cards/card_2_spade.png
+     - assets/images/Cards/card_3_spade.png
+     - assets/images/Cards/card_4_spade.png
+     - assets/images/Cards/card_5_spade.png
+     - assets/images/Cards/card_6_spade.png
+     - assets/images/Cards/card_7_spade.png
+     - assets/images/Cards/card_8_spade.png
+     - assets/images/Cards/card_9_spade.png
+     - assets/images/Cards/card_10_spade.png
+     - assets/images/Cards/card_11_spade.png
+     - assets/images/Cards/card_12_spade.png
+     - assets/images/Cards/card_13_spade.png
 
