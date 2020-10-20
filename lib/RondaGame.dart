@@ -73,18 +73,22 @@ class RondaGame {
       print("Player 1 : " + player.score.toString());
       print("Opponent : " + opponent.score.toString());
     }
+    opponentTurn();
+  }
+
+  void onTapDown(TapDownDetails d) {
+    if (turn == 0) {
+      playerTurn(d, player);
+    }
+  }
+
+  void opponentTurn() {
     if (turn == 1 && turnTime.elapsed.inMilliseconds > 750) {
       Random rnd = new Random();
       int r = 0 + rnd.nextInt(opponent.cards.length - 0);
       board.playCard(opponent.cards[r], opponent);
       opponent.cards.removeAt(r);
       endTurn();
-    }
-  }
-
-  void onTapDown(TapDownDetails d) {
-    if (turn == 0) {
-      playerTurn(d, player);
     }
   }
 
