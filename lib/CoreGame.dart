@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:Ronda/RondaGame.dart';
 import 'package:Ronda/view.dart';
 import 'package:Ronda/views/home-view.dart';
+import 'package:Ronda/views/result.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game/game.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,15 @@ import 'components/StartButton.dart';
 
 class CoreGame extends Game {
 
+  bool victory;
   Size screenSize;
   double tileSize;
   RondaGame rondaGame;
   HomeView homeView;
   View activeView = View.home;
   StartButton startButton;
+  Result resultView;
+
   CoreGame() {
     initialize();
   }
@@ -25,6 +29,7 @@ class CoreGame extends Game {
     resize(await Flame.util.initialDimensions());
     homeView = HomeView(this);
     startButton = StartButton(this);
+    resultView = Result(this);
   }
 
   @override
@@ -36,6 +41,10 @@ class CoreGame extends Game {
     }
     else if (activeView == View.playing) {
       rondaGame.render(canvas);
+    }
+    else if (activeView == View.result) {
+      resultView.render(canvas);
+      startButton.render(canvas);
     }
   }
 
@@ -51,6 +60,9 @@ class CoreGame extends Game {
     if (activeView == View.playing) {
       rondaGame.update(t);
     }
+    if (activeView == View.result) {
+      resultView.update(t);
+    }
   }
 
   void resize(Size size) {
@@ -61,7 +73,7 @@ class CoreGame extends Game {
 
   void onTapDown(TapDownDetails d) {
     if (startButton.rect.contains(d.globalPosition)) {
-      if (activeView == View.home) {
+      if (activeView == View.home || activeView == View.result) {
         startButton.onTapDown();
         rondaGame = RondaGame(this);
       }

@@ -70,10 +70,15 @@ class RondaGame {
       opponent.takeCard(dealCard());
     }
     if (deck.deck.isEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {
-      coreGame.activeView = View.home;
-      print("HERE");
+      if (player.score > opponent.score) {
+        coreGame.victory = true;
+      }
+      else {
+        coreGame.victory = false;
+      }
       print("Player 1 : " + player.score.toString());
       print("Opponent : " + opponent.score.toString());
+      coreGame.activeView = View.result;
     }
     opponentTurn();
   }
@@ -107,6 +112,8 @@ class RondaGame {
     if (playedCard != -1) {
       player.cards.removeAt(playedCard);
     }
+    print("player = " + player.score.toString());
+    print("opponent = " + opponent.score.toString());
   }
 
   void endTurn() {
