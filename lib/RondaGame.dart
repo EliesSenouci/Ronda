@@ -58,8 +58,8 @@ class RondaGame {
   }
 
   void update(double t) {
-    player.cards.forEach((element) {element.update(t);});
-    opponent.cards.forEach((element) {element.update(t);});
+    opponent.update(t);
+    board.update(t);
     if (deck.deck.isNotEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {
       player.takeCard(dealCard());
       player.takeCard(dealCard());

@@ -20,6 +20,7 @@ void main() {
   flameUtil.addGestureRecognizer(tapper);
 
   Flame.images.loadAll(<String>[
+    "Cards/back.png",
     "Cards/card_1_clover.png",
     "Cards/card_2_clover.png",
     "Cards/card_3_clover.png",

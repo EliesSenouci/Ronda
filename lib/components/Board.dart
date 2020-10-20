@@ -64,5 +64,9 @@ class Board {
   }
 
   void update(double t) {
+    cards.forEach((card) {
+      card.visible = true;
+      card.update(t);
+    });
   }
 }

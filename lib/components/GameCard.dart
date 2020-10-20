@@ -8,6 +8,7 @@ class GameCard {
 
   int value;
   String type;
+  bool visible = true;
 
   Sprite cardSprite;
   Rect cardRect;
@@ -32,19 +33,15 @@ class GameCard {
   }
 
   void render(Canvas canvas) {
-    cardSprite.renderRect(canvas, cardRect.inflate(2));
+      cardSprite.renderRect(canvas, cardRect.inflate(2));
   }
 
   void update(double t) {
-    if (touched == true) {
-      double stepDistance = speed * t;
-      Offset toTarget = targetLocation - Offset(cardRect.left, cardRect.top);
-      if (stepDistance < toTarget.distance) {
-        Offset stepToTarget = Offset.fromDirection(toTarget.direction, stepDistance);
-        cardRect = cardRect.shift(stepToTarget);
-      } else {
-        cardRect = cardRect.shift(toTarget);
-      }
+    if (!visible) {
+      cardSprite = Sprite("Cards/back.png");
+    }
+    else {
+      cardSprite = Sprite("Cards/card_" + value.toString() + "_" + type + ".png");
     }
   }
 
