@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:Ronda/components/OpponentPlayer.dart';
 import 'package:flutter/material.dart';
 
 import 'components/GameCard.dart';
@@ -12,6 +13,7 @@ class RondaGame {
 
   Deck deck;
   Player player;
+  OpponentPlayer opponent;
   Board board;
 
   RondaGame(this.coreGame) {
@@ -22,6 +24,14 @@ class RondaGame {
       player.takeCard(dealCard());
       player.takeCard(dealCard());
     }
+
+    if (opponent == null) {
+      opponent = new OpponentPlayer(coreGame);
+      opponent.takeCard(dealCard());
+      opponent.takeCard(dealCard());
+      opponent.takeCard(dealCard());
+    }
+
   }
 
   GameCard dealCard() {
@@ -39,14 +49,21 @@ class RondaGame {
   void render(Canvas canvas) {
     board.render(canvas);
     player.render(canvas);
+    opponent.render(canvas);
 
   }
 
   void update(double t) {
     player.cards.forEach((element) {element.update(t);});
+    opponent.cards.forEach((element) {element.update(t);});
   }
 
   void onTapDown(TapDownDetails d) {
+    playerTurn(d, player);
+    playerTurn(d, opponent);
+  }
+
+  void playerTurn(TapDownDetails d, Player player) {
     int playedCard = -1;
     player.cards.forEach((GameCard card) {
       if (card.cardRect.contains(d.globalPosition)) {
