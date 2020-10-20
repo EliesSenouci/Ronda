@@ -8,6 +8,7 @@ import 'components/Deck.dart';
 import 'components/Player.dart';
 import 'components/Board.dart';
 
+
 class RondaGame {
   final coreGame;
 
@@ -15,6 +16,8 @@ class RondaGame {
   Player player;
   OpponentPlayer opponent;
   Board board;
+
+  int turn = 0;
 
   RondaGame(this.coreGame) {
     initCards();
@@ -59,8 +62,12 @@ class RondaGame {
   }
 
   void onTapDown(TapDownDetails d) {
-    playerTurn(d, player);
-    playerTurn(d, opponent);
+    if (turn == 0) {
+      playerTurn(d, player);
+    }
+    if (turn == 1) {
+      playerTurn(d, opponent);
+    }
   }
 
   void playerTurn(TapDownDetails d, Player player) {
@@ -70,6 +77,12 @@ class RondaGame {
         card.onTapDown();
         board.takeCard(card);
         playedCard = player.cards.indexOf(card);
+        if (turn == 0) {
+          turn = 1;
+        }
+        else {
+          turn = 0;
+        }
       }
     });
     if (playedCard != -1) {
