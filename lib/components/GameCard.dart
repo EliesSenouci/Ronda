@@ -49,9 +49,6 @@ class GameCard {
   }
 
   void onTapDown() {
-    //touched = true;
-    double x = game.screenSize.width / 2 - width / 2;
-    double y = game.screenSize.height / 2 - height / 2;
-    //targetLocation = Offset(x, y);
+
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:Ronda/components/OpponentPlayer.dart';
@@ -77,7 +79,11 @@ class RondaGame {
       playerTurn(d, player);
     }
     if (turn == 1) {
-      playerTurn(d, opponent);
+      Random rnd = new Random();
+      int r = 0 + rnd.nextInt(opponent.cards.length - 0);
+      board.playCard(opponent.cards[r], player);
+      opponent.cards.removeAt(r);
+      endTurn();
     }
   }
 
@@ -85,7 +91,6 @@ class RondaGame {
     int playedCard = -1;
     player.cards.forEach((GameCard card) {
       if (card.cardRect.contains(d.globalPosition)) {
-        card.onTapDown();
         board.playCard(card, player);
         playedCard = player.cards.indexOf(card);
         endTurn();

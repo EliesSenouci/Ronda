@@ -21,7 +21,12 @@ class Board {
 
   void render(Canvas canvas) {
     cards.forEach((card) {
-      card.cardRect = Rect.fromLTWH(cards.indexOf(card) * cardWidth, cardPosY, cardWidth, cardHeight);
+      if (cards.indexOf(card) > 4) {
+        card.cardRect = Rect.fromLTWH((cards.indexOf(card) - 5) * cardWidth, cardPosY - cardHeight, cardWidth, cardHeight);
+      }
+      else {
+        card.cardRect = Rect.fromLTWH(cards.indexOf(card) * cardWidth, cardPosY, cardWidth, cardHeight);
+      }
       card.render(canvas);
     });
   }
@@ -36,10 +41,14 @@ class Board {
     if (found.isEmpty) {
       cards.add(card);
     }
-    found.forEach((card) {
-      cards.remove(card);
+    else {
       player.score += 1;
-    });
+      found.forEach((card) {
+        cards.remove(card);
+        player.score += 1;
+      });
+
+    }
   }
 
   void update(double t) {
