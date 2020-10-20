@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:Ronda/CoreGame.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -9,24 +10,17 @@ import 'components/Deck.dart';
 import 'components/Player.dart';
 import 'components/Board.dart';
 
-class RondaGame extends Game {
-
-  Size screenSize;
-  double tileSize;
+class RondaGame {
+  final game;
   Deck deck;
   int round = 0;
   Player player;
   Board board;
 
-  RondaGame() {
-    initialize();
-  }
-
-  void initialize() async {
-    resize(await Flame.util.initialDimensions());
+  RondaGame(this.game) {
     initCards();
     if (player == null) {
-      player = new Player(this);
+      player = new Player(game);
       player.takeCard(dealCard());
       player.takeCard(dealCard());
       player.takeCard(dealCard());
@@ -40,38 +34,21 @@ class RondaGame extends Game {
   }
 
   void initCards() {
-    deck = new Deck(this);
-    board = Board(this);
-    //board.takeCard(dealCard());
+    deck = new Deck(game);
+    board = Board(game);
     board.takeCard(dealCard());
     board.takeCard(dealCard());
     board.takeCard(dealCard());
   }
 
-  @override
   void render(Canvas canvas) {
-    drawBackground(canvas);
     board.render(canvas);
     player.render(canvas);
 
   }
 
-  void drawBackground(Canvas canvas) {
-    Rect bgRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
-    Paint bgPaint = Paint();
-    bgPaint.color = Color(0xff576574);
-    canvas.drawRect(bgRect, bgPaint);
-  }
-
-  @override
   void update(double t) {
     player.cards.forEach((element) {element.update(t);});
-  }
-
-  void resize(Size size) {
-    screenSize = size;
-    tileSize = screenSize.width / 9;
-
   }
 
   void onTapDown(TapDownDetails d) {

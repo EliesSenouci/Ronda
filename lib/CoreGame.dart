@@ -1,25 +1,28 @@
 import 'dart:ui';
 
+import 'package:Ronda/RondaGame.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game/game.dart';
+import 'package:flutter/material.dart';
 
 class CoreGame extends Game {
 
   Size screenSize;
   double tileSize;
-
+  RondaGame rondaGame;
   CoreGame() {
     initialize();
-
   }
 
   void initialize() async {
     resize(await Flame.util.initialDimensions());
+    rondaGame = RondaGame(this);
   }
 
   @override
   void render(Canvas canvas) {
     drawBackground(canvas);
+    rondaGame.render(canvas);
   }
 
   void drawBackground(Canvas canvas) {
@@ -30,7 +33,7 @@ class CoreGame extends Game {
   }
   @override
   void update(double t) {
-    // TODO: implement update
+    rondaGame.update(t);
   }
 
   void resize(Size size) {
@@ -39,6 +42,8 @@ class CoreGame extends Game {
 
   }
 
-  get onTapDown => null;
+  void onTapDown(TapDownDetails d) {
+    rondaGame.onTapDown(d);
+  }
 
 }
