@@ -1,8 +1,5 @@
 import 'dart:ui';
 
-import 'package:Ronda/CoreGame.dart';
-import 'package:flame/flame.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import 'components/GameCard.dart';
@@ -11,16 +8,16 @@ import 'components/Player.dart';
 import 'components/Board.dart';
 
 class RondaGame {
-  final game;
+  final coreGame;
+
   Deck deck;
-  int round = 0;
   Player player;
   Board board;
 
-  RondaGame(this.game) {
+  RondaGame(this.coreGame) {
     initCards();
     if (player == null) {
-      player = new Player(game);
+      player = new Player(coreGame);
       player.takeCard(dealCard());
       player.takeCard(dealCard());
       player.takeCard(dealCard());
@@ -34,10 +31,8 @@ class RondaGame {
   }
 
   void initCards() {
-    deck = new Deck(game);
-    board = Board(game);
-    board.takeCard(dealCard());
-    board.takeCard(dealCard());
+    deck = new Deck(coreGame);
+    board = Board(coreGame);
     board.takeCard(dealCard());
   }
 
@@ -52,11 +47,16 @@ class RondaGame {
   }
 
   void onTapDown(TapDownDetails d) {
+    int playedCard = -1;
     player.cards.forEach((GameCard card) {
       if (card.cardRect.contains(d.globalPosition)) {
         card.onTapDown();
         board.takeCard(card);
+        playedCard = player.cards.indexOf(card);
       }
     });
+    if (playedCard != -1) {
+      player.cards.removeAt(playedCard);
+    }
   }
 }

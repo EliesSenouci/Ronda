@@ -3,25 +3,26 @@ import 'dart:ui';
 import 'GameCard.dart';
 
 class Player {
-  List<GameCard> cards;
   final game;
+
+  List<GameCard> cards;
+  double cardPosX = 0;
+  double cardPosY;
+  double cardWidth;
+  double cardHeight;
 
   Player(this.game) {
     cards = List<GameCard>();
+    cardWidth = game.screenSize.width / 5;
+    cardHeight = game.screenSize.height / 5;
+    cardPosY = game.screenSize.height - cardHeight / 2;
   }
 
   void takeCard(GameCard card) {
     if (cards.length < 3) {
       cards.add(card);
-      if (cards.length == 1) {
-        card.cardRect = Rect.fromLTWH(card.posX - card.width, card.posY, game.screenSize.width / 3, game.screenSize.height / 3);
-      }
-      if (cards.length == 2) {
-        card.cardRect = Rect.fromLTWH(card.posX, card.posY, game.screenSize.width / 3, game.screenSize.height / 3);
-      }
-      if (cards.length == 3) {
-        card.cardRect = Rect.fromLTWH(card.posX + card.width, card.posY, game.screenSize.width / 3, game.screenSize.height / 3);
-      }
+      double posX = cardWidth * cards.length;
+      card.cardRect = Rect.fromLTWH(posX, cardPosY, cardWidth, cardHeight);
     }
   }
 
