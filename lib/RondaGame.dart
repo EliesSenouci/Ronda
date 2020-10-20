@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 
@@ -44,7 +43,6 @@ class RondaGame {
       player.takeCard(dealCard());
       player.takeCard(dealCard());
     }
-
     if (opponent == null) {
       opponent = new OpponentPlayer(coreGame);
       opponent.takeCard(dealCard());
@@ -57,20 +55,23 @@ class RondaGame {
     board.render(canvas);
     player.render(canvas);
     opponent.render(canvas);
-
   }
 
   void update(double t) {
     player.cards.forEach((element) {element.update(t);});
     opponent.cards.forEach((element) {element.update(t);});
-    if (player.cards.isEmpty && opponent.cards.isEmpty) {
+    if (deck.deck.isNotEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {
       player.takeCard(dealCard());
       player.takeCard(dealCard());
       player.takeCard(dealCard());
       opponent.takeCard(dealCard());
       opponent.takeCard(dealCard());
       opponent.takeCard(dealCard());
-
+    }
+    if (deck.deck.isEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {
+      print("HERE");
+      print("Player 1 : " + player.score.toString());
+      print("Opponent : " + opponent.score.toString());
     }
   }
 
@@ -81,7 +82,7 @@ class RondaGame {
     if (turn == 1) {
       Random rnd = new Random();
       int r = 0 + rnd.nextInt(opponent.cards.length - 0);
-      board.playCard(opponent.cards[r], player);
+      board.playCard(opponent.cards[r], opponent);
       opponent.cards.removeAt(r);
       endTurn();
     }
