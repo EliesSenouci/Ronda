@@ -5,8 +5,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'CoreGame.dart';
+
 void main() {
-  RondaGame game = new RondaGame();
+  CoreGame game = new CoreGame();
   runApp(game.widget);
 
   Util flameUtil = Util();

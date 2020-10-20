@@ -4,15 +4,19 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
-import 'Cards/GameCard.dart';
-import 'Deck.dart';
+import 'components/GameCard.dart';
+import 'components/Deck.dart';
+import 'components/Player.dart';
+import 'components/Board.dart';
 
 class RondaGame extends Game {
 
   Size screenSize;
   double tileSize;
   Deck deck;
-  List<GameCard> cards;
+  int round = 0;
+  Player player;
+  Board board;
 
   RondaGame() {
     initialize();
@@ -21,26 +25,47 @@ class RondaGame extends Game {
   void initialize() async {
     resize(await Flame.util.initialDimensions());
     initCards();
+    if (player == null) {
+      player = new Player(this);
+      player.takeCard(dealCard());
+      player.takeCard(dealCard());
+      player.takeCard(dealCard());
+    }
+  }
+
+  GameCard dealCard() {
+    GameCard card = deck.deck.last;
+    deck.deck.removeLast();
+    return card;
   }
 
   void initCards() {
-    cards = List<GameCard>();
     deck = new Deck(this);
-    cards.add(deck.deck.last);
+    board = Board(this);
+    //board.takeCard(dealCard());
+    board.takeCard(dealCard());
+    board.takeCard(dealCard());
+    board.takeCard(dealCard());
   }
 
   @override
   void render(Canvas canvas) {
+    drawBackground(canvas);
+    board.render(canvas);
+    player.render(canvas);
+
+  }
+
+  void drawBackground(Canvas canvas) {
     Rect bgRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     Paint bgPaint = Paint();
     bgPaint.color = Color(0xff576574);
     canvas.drawRect(bgRect, bgPaint);
-    cards.forEach((GameCard card) => card.render(canvas));
   }
 
   @override
   void update(double t) {
-    cards.forEach((element) {element.update(t);});
+    player.cards.forEach((element) {element.update(t);});
   }
 
   void resize(Size size) {
@@ -50,9 +75,10 @@ class RondaGame extends Game {
   }
 
   void onTapDown(TapDownDetails d) {
-    cards.forEach((GameCard card) {
+    player.cards.forEach((GameCard card) {
       if (card.cardRect.contains(d.globalPosition)) {
         card.onTapDown();
+        board.takeCard(card);
       }
     });
   }

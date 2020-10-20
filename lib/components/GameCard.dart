@@ -5,17 +5,20 @@ import 'package:flutter/material.dart';
 
 class GameCard {
   final game;
+
   int value;
   String type;
+
+  Sprite cardSprite;
+  Rect cardRect;
   double width;
   double height;
   double posX;
   double posY;
-  Rect cardRect;
+
   bool touched = false;
   Offset targetLocation;
-  double get speed => game.tileSize * 15;
-  Sprite cardSprite;
+  double get speed => game.tileSize * 50;
 
   GameCard(this.game, int value, String type) {
     width = game.screenSize.width / 3;
@@ -42,15 +45,13 @@ class GameCard {
       } else {
         cardRect = cardRect.shift(toTarget);
       }
-
     }
   }
 
   void onTapDown() {
-    touched = true;
+    //touched = true;
     double x = game.screenSize.width / 2 - width / 2;
     double y = game.screenSize.height / 2 - height / 2;
-    targetLocation = Offset(x, y);
-
+    //targetLocation = Offset(x, y);
   }
 }

@@ -1,4 +1,4 @@
-import 'package:Ronda/Cards/GameCard.dart';
+import 'package:Ronda/components/GameCard.dart';
 import 'package:flame/game.dart';
 
 class Deck {
