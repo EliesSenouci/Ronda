@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:Ronda/components/OpponentPlayer.dart';
+import 'package:Ronda/view.dart';
 import 'package:flutter/material.dart';
 
 import 'components/GameCard.dart';
@@ -69,6 +70,7 @@ class RondaGame {
       opponent.takeCard(dealCard());
     }
     if (deck.deck.isEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {
+      coreGame.activeView = View.home;
       print("HERE");
       print("Player 1 : " + player.score.toString());
       print("Opponent : " + opponent.score.toString());

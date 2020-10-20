@@ -24,6 +24,8 @@ flutter:
   uses-material-design: true
 
   assets:
+     - assets/images/UI/title.png
+     - assets/images/UI/play.png
      - assets/images/Cards/back.png
      - assets/images/Cards/card_1_clover.png
      - assets/images/Cards/card_2_clover.png
