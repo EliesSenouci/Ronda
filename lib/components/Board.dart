@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:Ronda/components/GameCard.dart';
+import 'package:Ronda/components/Player.dart';
 
 class Board {
   List<GameCard> cards;
@@ -20,14 +21,25 @@ class Board {
 
   void render(Canvas canvas) {
     cards.forEach((card) {
+      card.cardRect = Rect.fromLTWH(cards.indexOf(card) * cardWidth, cardPosY, cardWidth, cardHeight);
       card.render(canvas);
     });
   }
 
-  void takeCard(GameCard card) {
-    double posX = cardWidth * cards.length;
-    card.cardRect = Rect.fromLTWH(posX, cardPosY, cardWidth, cardHeight);
-    cards.add(card);
+  void playCard(GameCard card, Player player) {
+    List<GameCard> found = List<GameCard>();
+    cards.forEach((boardCard) {
+      if (card.value == boardCard.value) {
+        found.add(boardCard);
+      }
+    });
+    if (found.isEmpty) {
+      cards.add(card);
+    }
+    found.forEach((card) {
+      cards.remove(card);
+      player.score += 1;
+    });
   }
 
   void update(double t) {

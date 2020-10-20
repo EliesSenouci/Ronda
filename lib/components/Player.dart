@@ -11,6 +11,8 @@ class Player {
   double cardWidth;
   double cardHeight;
 
+  int score = 0;
+
   Player(this.game) {
     cards = List<GameCard>();
     cardWidth = game.screenSize.width / 5;

@@ -21,6 +21,21 @@ class RondaGame {
 
   RondaGame(this.coreGame) {
     initCards();
+  }
+
+  GameCard dealCard() {
+    GameCard card = deck.deck.last;
+    deck.deck.removeLast();
+    return card;
+  }
+
+  void initCards() {
+    deck = new Deck(coreGame);
+    board = Board(coreGame);
+    board.cards.add(dealCard());
+    board.cards.add(dealCard());
+    board.cards.add(dealCard());
+    board.cards.add(dealCard());
     if (player == null) {
       player = new Player(coreGame);
       player.takeCard(dealCard());
@@ -34,19 +49,6 @@ class RondaGame {
       opponent.takeCard(dealCard());
       opponent.takeCard(dealCard());
     }
-
-  }
-
-  GameCard dealCard() {
-    GameCard card = deck.deck.last;
-    deck.deck.removeLast();
-    return card;
-  }
-
-  void initCards() {
-    deck = new Deck(coreGame);
-    board = Board(coreGame);
-    board.takeCard(dealCard());
   }
 
   void render(Canvas canvas) {
@@ -59,6 +61,15 @@ class RondaGame {
   void update(double t) {
     player.cards.forEach((element) {element.update(t);});
     opponent.cards.forEach((element) {element.update(t);});
+    if (player.cards.isEmpty && opponent.cards.isEmpty) {
+      player.takeCard(dealCard());
+      player.takeCard(dealCard());
+      player.takeCard(dealCard());
+      opponent.takeCard(dealCard());
+      opponent.takeCard(dealCard());
+      opponent.takeCard(dealCard());
+
+    }
   }
 
   void onTapDown(TapDownDetails d) {
@@ -75,18 +86,22 @@ class RondaGame {
     player.cards.forEach((GameCard card) {
       if (card.cardRect.contains(d.globalPosition)) {
         card.onTapDown();
-        board.takeCard(card);
+        board.playCard(card, player);
         playedCard = player.cards.indexOf(card);
-        if (turn == 0) {
-          turn = 1;
-        }
-        else {
-          turn = 0;
-        }
+        endTurn();
       }
     });
     if (playedCard != -1) {
       player.cards.removeAt(playedCard);
+    }
+  }
+
+  void endTurn() {
+    if (turn == 0) {
+      turn = 1;
+    }
+    else {
+      turn = 0;
     }
   }
 }
