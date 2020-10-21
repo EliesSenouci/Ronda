@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:Ronda/components/OpponentPlayer.dart';
+import 'package:Ronda/components/ScoreDisplay.dart';
 import 'package:Ronda/view.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,8 @@ class RondaGame {
   Player player;
   OpponentPlayer opponent;
   Board board;
+  ScoreDisplay playerScoreDisplay;
+  ScoreDisplay opponentScoreDisplay;
 
   int turn = 0;
   Stopwatch turnTime;
@@ -34,6 +37,9 @@ class RondaGame {
   void initCards() {
     deck = new Deck(coreGame);
     board = Board(coreGame);
+    playerScoreDisplay = ScoreDisplay(coreGame);
+    opponentScoreDisplay = ScoreDisplay(coreGame);
+
     board.cards.add(dealCard());
     board.cards.add(dealCard());
     board.cards.add(dealCard());
@@ -56,11 +62,15 @@ class RondaGame {
     board.render(canvas);
     player.render(canvas);
     opponent.render(canvas);
+    playerScoreDisplay.render(canvas);
+    opponentScoreDisplay.render(canvas);
   }
 
   void update(double t) {
     opponent.update(t);
     board.update(t);
+    playerScoreDisplay.update(t, player);
+    opponentScoreDisplay.update(t, opponent);
     if (deck.deck.isNotEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {
       player.takeCard(dealCard());
       player.takeCard(dealCard());
