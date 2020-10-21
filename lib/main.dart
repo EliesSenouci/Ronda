@@ -74,4 +74,11 @@ void main() {
     "Cards/card_12_spade.png",
     "Cards/card_13_spade.png"
   ]);
+
+  Flame.audio.disableLog();
+  Flame.audio.loadAll(<String>[
+    'sfx/dealcard.mp3',
+    'sfx/win.mp3',
+    'sfx/dealmultiplescards.mp3'
+  ]);
 }

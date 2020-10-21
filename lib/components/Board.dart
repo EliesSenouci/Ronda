@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:Ronda/components/GameCard.dart';
+import 'package:Ronda/components/OpponentPlayer.dart';
 import 'package:Ronda/components/Player.dart';
+import 'package:flame/flame.dart';
 
 class Board {
   List<GameCard> cards;
@@ -54,6 +56,9 @@ class Board {
       cards.add(card);
     }
     else {
+      if (player is OpponentPlayer == false) {
+        //Flame.audio.play("sfx/win.mp3");
+      }
       player.score += 1;
       found.forEach((card) {
         cards.remove(card);

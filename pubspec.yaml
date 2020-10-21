@@ -24,7 +24,9 @@ flutter:
   uses-material-design: true
 
   assets:
-     - assets/images/UI/win.png
+     - assets/audio/sfx/dealmultiplescards.mp3
+     - assets/audio/sfx/dealcard.mp3
+     - assets/audio/sfx/win.mp3
      - assets/images/UI/loose.png
      - assets/images/UI/title.png
      - assets/images/UI/play.png

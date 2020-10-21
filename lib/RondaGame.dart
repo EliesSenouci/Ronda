@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:Ronda/components/OpponentPlayer.dart';
 import 'package:Ronda/components/ScoreDisplay.dart';
 import 'package:Ronda/view.dart';
+import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
 import 'components/GameCard.dart';
@@ -39,6 +40,7 @@ class RondaGame {
     board = Board(coreGame);
     playerScoreDisplay = ScoreDisplay(coreGame);
     opponentScoreDisplay = ScoreDisplay(coreGame);
+    Flame.audio.play("sfx/dealmultiplescards.mp3");
 
     board.cards.add(dealCard());
     board.cards.add(dealCard());
@@ -72,6 +74,7 @@ class RondaGame {
     playerScoreDisplay.update(t, player);
     opponentScoreDisplay.update(t, opponent);
     if (deck.deck.isNotEmpty && player.cards.isEmpty && opponent.cards.isEmpty) {
+      Flame.audio.play("sfx/dealmultiplescards.mp3");
       player.takeCard(dealCard());
       player.takeCard(dealCard());
       player.takeCard(dealCard());
@@ -86,8 +89,6 @@ class RondaGame {
       else {
         coreGame.victory = false;
       }
-      print("Player 1 : " + player.score.toString());
-      print("Opponent : " + opponent.score.toString());
       coreGame.activeView = View.result;
     }
     opponentTurn();
@@ -115,6 +116,7 @@ class RondaGame {
       if (card.cardRect.contains(d.globalPosition)) {
         board.playCard(card, player);
         playedCard = player.cards.indexOf(card);
+        Flame.audio.play("sfx/dealcard.mp3");
         endTurn();
         turnTime = new Stopwatch()..start();
       }
@@ -122,8 +124,6 @@ class RondaGame {
     if (playedCard != -1) {
       player.cards.removeAt(playedCard);
     }
-    print("player = " + player.score.toString());
-    print("opponent = " + opponent.score.toString());
   }
 
   void endTurn() {
