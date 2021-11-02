@@ -36,7 +36,7 @@ class ScoreDisplay {
   }
 
   void update(double t, Player player) {
-    if ((textPainter.text?.text ?? '') != player.score.toString()) {
+    if ((textPainter.text ?? '') != player.score.toString()) {
       textPainter.text = TextSpan(
         text: player.score.toString(),
         style: textStyle,
